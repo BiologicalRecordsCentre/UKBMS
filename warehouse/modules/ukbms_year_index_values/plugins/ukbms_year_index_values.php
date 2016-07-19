@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Indicia, the OPAL Online Recording Toolkit.
  *
@@ -18,16 +17,16 @@
  * @license	http://www.gnu.org/licenses/gpl.html GPL
  */
 
-echo $grid;
-?>
-<form action="<?php echo url::site().'year_index_value/create'; ?>" method="post">
-<input type="submit" value="New Year Index Value" class="ui-corner-all ui-state-default button" />
-</form>
-<?php
-echo $upload_csv_form;
-
-$systemTableEntries = $this->db->select('*')->from('system')->where('name','year_index_values')->get()->as_array(true);
-foreach($systemTableEntries as $systemTableEntry) {
-	echo 'Year Index Value module version : '.$systemTableEntry->version.'<span style="display:none;">ID '.$systemTableEntry->id.", last script : ".$systemTableEntry->last_run_script."</span><br>";
+function ukbms_year_index_values_alter_menu($menu, $auth) {
+	if ($auth->logged_in('CoreAdmin') || $auth->has_any_website_access('admin'))
+		$menu['Admin']['Year Index Values']='ukbms_year_index_value';
+	return $menu;
 }
+
+function ukbms_year_index_values_extend_data_services() {
+	return array(
+			'ukbms_year_index_values'=>array()
+	);
+}
+
 ?>

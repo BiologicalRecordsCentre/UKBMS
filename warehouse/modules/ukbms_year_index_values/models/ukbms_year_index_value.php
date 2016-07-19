@@ -19,9 +19,9 @@
  */
 
 /**
- * Model class for the Year_index_value table.
+ * Model class for the ukbms_year_index_value table.
  */
-class Year_index_value_Model extends ORM {
+class ukbms_year_index_value_Model extends ORM {
   public $search_field='id';
 
   protected $belongs_to = array('survey', 'location', 'taxa_taxon_list');
@@ -42,8 +42,8 @@ class Year_index_value_Model extends ORM {
   // Declare additional fields required when posting via CSV.
   protected $additional_csv_fields=array(
   		// extra lookup options
-  		'year_index_value:fk_location:code' => 'Location Code',
-  		'year_index_value:fk_location:external_key' => 'Location external key',
+  		'ukbms_year_index_value:fk_location:code' => 'Location Code',
+  		'ukbms_year_index_value:fk_location:external_key' => 'Location external key',
   );
 
   /**

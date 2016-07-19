@@ -96,16 +96,16 @@ $(document).ready(function() {
   });
 });
 </script>
-<form class="iform" action="<?php echo url::site(); ?>year_index_value/save" method="post" id="entry-form"">
+<form class="iform" action="<?php echo url::site(); ?>ukbms_year_index_value/save" method="post" id="entry-form"">
 <fieldset>
-<legend>Year Index Value</legend>
+<legend>UKBMS Year Index Value</legend>
 <?php
 data_entry_helper::link_default_stylesheet();
 data_entry_helper::enable_validation('entry-form');
-if (isset($values['year_index_value:id'])) :
-	print form::hidden('year_index_value:id', html::initial_value($values, 'year_index_value:id'));
-	print form::hidden('year_index_value:survey_id', html::initial_value($values, 'year_index_value:survey_id'));
-	$survey = new Survey_Model($values['year_index_value:survey_id']);
+if (isset($values['ukbms_year_index_value:id'])) :
+	print form::hidden('ukbms_year_index_value:id', html::initial_value($values, 'ukbms_year_index_value:id'));
+	print form::hidden('ukbms_year_index_value:survey_id', html::initial_value($values, 'ukbms_year_index_value:survey_id'));
+	$survey = new Survey_Model($values['ukbms_year_index_value:survey_id']);
 	echo data_entry_helper::text_input(array(
 		'label'=>'Survey Title',
 		'fieldname'=>'survey:title',
@@ -126,52 +126,52 @@ else :
     }
     echo data_entry_helper::select(array(
     	'label' => 'Survey',
-    	'fieldname' => 'year_index_value:survey_id',
-    	'default' => html::initial_value($values, 'year_index_value:survey_id'),
+    	'fieldname' => 'ukbms_year_index_value:survey_id',
+    	'default' => html::initial_value($values, 'ukbms_year_index_value:survey_id'),
     	'lookupValues' => $arr,
     	'blankText' => '<Please select>',
 		'validation' => array('required')
     ));
-    echo html::error_message($model->getError('year_index_value:survey_id'));
+    echo html::error_message($model->getError('ukbms_year_index_value:survey_id'));
 endif;
 
 echo data_entry_helper::text_input(array(
 		'label' => 'Year',
-		'fieldname' => 'year_index_value:year',
-		'default' => html::initial_value($values, 'year_index_value:year'),
+		'fieldname' => 'ukbms_year_index_value:year',
+		'default' => html::initial_value($values, 'ukbms_year_index_value:year'),
 		'validation' => array('required','integer','minimum[1900]')
 ));
-echo html::error_message($model->getError('year_index_value:year'));
+echo html::error_message($model->getError('ukbms_year_index_value:year'));
 
 echo "<label for='location'>Location:</label>";
 print form::input('location', $model->location->name);
 echo data_entry_helper::text_input(array(
 	'label'=>'Location ID',
-	'fieldname'=>'year_index_value:location_id',
-	'default'=>html::initial_value($values, 'year_index_value:location_id'),
+	'fieldname'=>'ukbms_year_index_value:location_id',
+	'default'=>html::initial_value($values, 'ukbms_year_index_value:location_id'),
 	'readonly' => 'readonly'
 ));
-echo html::error_message($model->getError('year_index_value:location_id'));
+echo html::error_message($model->getError('ukbms_year_index_value:location_id'));
 
 echo "<label for='taxon'>Taxon:</label>";
 print form::input('taxon', $model->taxa_taxon_list->taxon->taxon);
 echo data_entry_helper::text_input(array(
 	'label'=>'Taxon ID',
-	'fieldname'=>'year_index_value:taxa_taxon_list_id',
-	'default'=>html::initial_value($values, 'year_index_value:taxa_taxon_list_id'),
+	'fieldname'=>'ukbms_year_index_value:taxa_taxon_list_id',
+	'default'=>html::initial_value($values, 'ukbms_year_index_value:taxa_taxon_list_id'),
 	'readonly' => 'readonly'
 ));
-echo html::error_message($model->getError('year_index_value:taxa_taxon_list_id'));
+echo html::error_message($model->getError('ukbms_year_index_value:taxa_taxon_list_id'));
 
 echo data_entry_helper::text_input(array(
 		'label' => 'Index',
-		'fieldname' => 'year_index_value:index',
-		'default' => html::initial_value($values, 'year_index_value:index'),
+		'fieldname' => 'ukbms_year_index_value:index',
+		'default' => html::initial_value($values, 'ukbms_year_index_value:index'),
 		'validation' => array('required','integer','minimum[0]')
 ));
-echo html::error_message($model->getError('year_index_value:index'));
+echo html::error_message($model->getError('ukbms_year_index_value:index'));
 
-echo html::form_buttons((isset($values['year_index_value:id'])), false, false);
+echo html::form_buttons((isset($values['ukbms_year_index_value:id'])), false, false);
 data_entry_helper::$dumped_resources[] = 'jquery';
 data_entry_helper::$dumped_resources[] = 'jquery_ui';
 data_entry_helper::$dumped_resources[] = 'fancybox';

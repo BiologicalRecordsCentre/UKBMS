@@ -19,12 +19,12 @@
  */
 
 /**
- * Controller providing CRUD access to the year index values list.
+ * Controller providing CRUD access to the ukbms year index values list.
  */
-class Year_index_value_Controller extends Gridview_Base_Controller {
+class Ukbms_year_index_value_Controller extends Gridview_Base_Controller {
 
   public function __construct() {
-    parent::__construct('year_index_value');
+    parent::__construct('ukbms_year_index_value');
     $this->columns = array(
       'title'   => 'Survey title',
       'website' => '',
@@ -32,7 +32,7 @@ class Year_index_value_Controller extends Gridview_Base_Controller {
       'name'    => 'Location',
       'taxon'   => ''
     );
-    $this->pagetitle = "Aggregated data: Year Index Value";
+    $this->pagetitle = "UKBMS Aggregated data: Year Index Value";
   }
     
   /**
