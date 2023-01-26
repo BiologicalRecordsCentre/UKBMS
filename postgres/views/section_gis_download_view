@@ -1,0 +1,30 @@
+-- View: ukbms.section_gis_download_view
+
+-- DROP VIEW ukbms.section_gis_download_view;
+
+CREATE OR REPLACE VIEW ukbms.section_gis_download_view
+ AS
+ SELECT section.id AS section_id,
+    (COALESCE(l.code, l.name)::text || '.'::text) || "substring"(section.code::text, 2) AS section_code,
+    section.code AS section_number,
+    section.centroid_sref AS grid_ref,
+    l.id AS site_id,
+    l.code AS site_code,
+    l.name AS site_name,
+    lw.website_id,
+    l.location_type_id,
+    lav.location_attribute_id,
+    ('|'::text || string_agg(lav.int_value::text, '|'::text)) || '|'::text AS attr_value,
+    section.boundary_geom AS geom,
+    round(st_length(st_transform(section.boundary_geom, 4326)::geography, true)) AS section_length
+   FROM locations_websites lw
+     JOIN locations l ON l.id = lw.location_id AND l.deleted = false
+     JOIN locations section ON section.parent_id = l.id AND section.deleted = false
+     LEFT JOIN location_attribute_values lav ON lav.location_id = l.id
+  WHERE lw.deleted = false AND geometrytype(section.boundary_geom) = 'LINESTRING'::text
+  GROUP BY section.id, ((COALESCE(l.code, l.name)::text || '.'::text) || "substring"(section.code::text, 2)), section.code, section.centroid_sref, l.id, l.code, l.name, lw.website_id, l.location_type_id, lav.location_attribute_id, section.boundary_geom, (round(st_length(st_transform(section.boundary_geom, 4326)::geography, true)))
+  ORDER BY l.name;
+
+ALTER TABLE ukbms.section_gis_download_view
+    OWNER TO postgres;
+

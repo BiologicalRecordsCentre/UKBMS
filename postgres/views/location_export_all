@@ -1,0 +1,21 @@
+-- View: ukbms.location_export_all
+
+-- DROP VIEW ukbms.location_export_all;
+
+CREATE OR REPLACE VIEW ukbms.location_export_all
+ AS
+ SELECT law.id,
+    l.id AS location_id,
+    l.location_type_id,
+    l.name,
+    l.code,
+    l.centroid_sref,
+    l.centroid_geom
+   FROM locations l
+     LEFT JOIN location_attributes_websites law ON l.location_type_id = law.restrict_to_location_type_id
+  WHERE law.restrict_to_survey_id = 64
+  ORDER BY law.id;
+
+ALTER TABLE ukbms.location_export_all
+    OWNER TO postgres;
+

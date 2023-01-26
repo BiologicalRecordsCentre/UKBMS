@@ -1,0 +1,29 @@
+-- View: ukbms.transects_locations
+
+-- DROP VIEW ukbms.transects_locations;
+
+CREATE OR REPLACE VIEW ukbms.transects_locations
+ AS
+ SELECT co.id,
+    co.sample_id,
+    co.date_start,
+    co.date_end,
+    co.public_entered_sref AS spatial_ref,
+    co.public_geom,
+    co.taxa_taxon_list_id,
+    co.taxon,
+    co.authority,
+    co.default_common_name,
+    co.taxa_taxon_list_external_key,
+    co.location_id,
+    co.location_name,
+    l.code,
+    co.recorders
+   FROM cache_occurrences_deprecated co
+     LEFT JOIN locations l ON l.id = co.location_id
+  WHERE co.survey_id = 64
+  ORDER BY co.id;
+
+ALTER TABLE ukbms.transects_locations
+    OWNER TO postgres;
+

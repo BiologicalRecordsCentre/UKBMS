@@ -1,0 +1,22 @@
+-- View: ukbms.sample_gis_download_view
+
+-- DROP VIEW ukbms.sample_gis_download_view;
+
+CREATE OR REPLACE VIEW ukbms.sample_gis_download_view
+ AS
+ SELECT s.id AS smpid,
+    to_char(s.created_on::date::timestamp with time zone, 'dd/MM/yyyy'::text) AS smpdate,
+    count(DISTINCT o.taxon_meaning_id) AS taxacount,
+    s.location_name AS location,
+    st_transform(s.public_geom, 4326) AS geom,
+    s.survey_id AS surveyid,
+    s.created_by_id AS userid
+   FROM cache_samples_functional s
+     JOIN cache_occurrences_functional o ON o.sample_id = s.id
+     JOIN cache_samples_nonfunctional csn ON csn.id = s.id
+  WHERE geometrytype(s.public_geom) = 'LINESTRING'::text OR geometrytype(s.public_geom) = 'MULTILINESTRING'::text
+  GROUP BY s.id;
+
+ALTER TABLE ukbms.sample_gis_download_view
+    OWNER TO postgres;
+
